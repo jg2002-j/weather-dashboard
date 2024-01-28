@@ -4,15 +4,23 @@
 
       var FormEl = $("#search-form")
       var InputEl = $("#search-input")
-      var SubmitBtn = $("search-button")
-
-      var SearchQuery = InputEl.val()
       
-      SubmitBtn.on("click", function{
-            console.log(SearchQuery)
-            SearchQuery.val("")
-      })
+      function WeatherSearch(event){
+            event.preventDefault();
+            var SearchQuery = InputEl.val();
+            InputEl.val("");
+            console.log(SearchQuery);
 
+            var cityName = "";
+            var date = "";
+            var weatherIcon = "";
+            var temperature = "";
+            var humidity = "";
+            var windspeed = "";
+
+      }
+
+      FormEl.on("submit", WeatherSearch)
 
       // When a user views the current weather conditions for that city they are presented with:
 
