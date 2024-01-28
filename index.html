@@ -5,7 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="styles/reset.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/cloud-sun.svg">
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Fonts -->
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,700&f[]=cabinet-grotesk@400&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/styles.css" />
   <title>Weather Dashboard</title>
 </head>
 
@@ -23,19 +30,21 @@
         </h2>
         <form id="search-form" class="form">
           <div class="form-inline form-group">
-            <div class="input-group">
-              <input class="form-input weather-search" type="text" id="search-input" placeholder="London"
-                aria-labelledby="form-heading" aria-controls="today forecast" />
-              <div class="input-group-append">
-                <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
+            <div class="input-group w-100 m-2">
+              <input class="form-input weather-search w-100 m-2 rounded form-control" type="text" id="search-input" placeholder="London"
+                aria-labelledby="form-heading" aria-controls="today forecast"/>
+              <div class="input-group-append w-100 m-2">
+                <button type="submit" class="btn btn-primary search-button w-100" id="search-button" aria-label="submit search">
                   Search
                 </button>
-                <hr class="hr weather-hr" />
+                <hr class="hr weather-hr w-100" />
               </div>
             </div>
           </div>
         </form>
-        <div class="list-group" id="history"></div>
+        <div class="list-group w-100" id="history">
+          <button class="btn btn-secondary search-button w-100 m-2" disabled>Previous result</button>
+        </div>
       </aside>
 
       <div class="col-lg-9 pb-3">
@@ -49,7 +58,8 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="script.js"></script>
+  <!-- Custom JS -->
+  <script src="./scripts/scripts.js"></script>
 </body>
 
 </html>
