@@ -3,6 +3,7 @@ font-family: 'General Sans', sans-serif;
 font-family: 'Cabinet Grotesk', sans-serif; 
 */
 
+body{background-color: #42424C;}
 *{font-family: 'Cabinet Grotesk', sans-serif;}
 h1{font-family: 'General Sans', sans-serif;}
 h2{font-weight: 700;}
