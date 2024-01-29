@@ -1,6 +1,7 @@
 // Create a weather dashboard with form inputs.
 
-      // When a user searches for a city they are presented with current and future conditions for that city and that city is added to the search history
+// When a user searches for a city they are presented with current and future conditions for that city and that city is added to the search history
+// When a user views the current weather conditions for that city they are presented with:
 
       var FormEl = $("#search-form")
       var InputEl = $("#search-input")
@@ -10,21 +11,35 @@
             var SearchQuery = InputEl.val();
             InputEl.val("");
             console.log(SearchQuery);
-
+            
+            var currentDate = dayjs();
             var cityName = "";
-            var date = "";
+            var date = currentDate.format("dddd DD/MM/YYYY");
             var weatherIcon = "";
             var temperature = "";
             var humidity = "";
             var windspeed = "";
 
+            console.log(currentDate.format("HH:mm:ss DD/MM/YYYY"))
+            console.log(date)
+
+            // The city name
+            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid="29d3c41b285caf441bf342de37c4db4d"`)
+                  .then(function (response) {
+                        return response.json();
+                  }).then(function (data){
+                        console.log(data)
+                  });            
+
+
       }
 
       FormEl.on("submit", WeatherSearch)
 
-      // When a user views the current weather conditions for that city they are presented with:
+      
 
-            // The city name
+
+
 
             // The date
 
