@@ -56,7 +56,7 @@
                                                 <div class="container d-flex justify-content-start">
                                                       <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                             <div class="card-body">
-                                                            <h5 class="card-title"><i class="me-2 bi bi-thermometer-half"></i> Temperature </h5>
+                                                            <h5 class="card-title"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i> Temperature </h5>
                                                             <p class="card-text">${temperature}°C</p>
                                                             </div>
                                                       </div>
@@ -68,7 +68,7 @@
                                                       </div>
                                                       <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                             <div class="card-body">
-                                                            <h5 class="card-title"><i class="me-2 bi bi-droplet-half"></i> Humidity</h5>
+                                                            <h5 class="card-title"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i> Humidity</h5>
                                                             <p class="card-text">${humidity} %</p>
                                                             </div>
                                                       </div>
@@ -102,14 +102,14 @@
                                           <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                 <div class="card-body">
                                                       <div class="d-flex flex-column justify-content-between align-content-center">
-                                                            <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon">
+                                                            <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
                                                             <div class="d-flex flex-column justify-content-evenly">
                                                                   <h5>${date.format("dddd DD MMM YYYY")}</h5>
                                                             </div>
                                                       </div>
-                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}°C</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}°C</p>
                                                       <p class="card-text mb-1"><i class="me-2 bi bi-wind"></i> ${forecastwindspeed} m/s</p>
-                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half"></i>${forecasthumidity} %</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i>${forecasthumidity} %</p>
                                                 </div>
                                           </div>
                                           `)
