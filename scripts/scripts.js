@@ -103,14 +103,6 @@ function WeatherSearch(event){
                               });
                         });            
             });  
-
-      var hCEl = $("#history")
-      console.log(hCEl)
-      hCEl.append(`
-            var pastSearchEl = $("<button class="btn btn-outline-light mx-2" onclick="WeatherSearch()">Previous result</button>")
-      `)
-
-
 }
 
 
@@ -120,10 +112,26 @@ FormEl.on("submit", WeatherSearch)
 
 // When a user click on a city in the search history they are again presented with current and future conditions for that city
 
-      // Add old search results to localStorage
+      // Add old search results to localStorage array
 
+      var SearchQuery = "Madrid"
+      localStorage.setItem("historySearches", JSON.stringify([]))
+      var pastSearches = localStorage.getItem("historySearches")
+      pastSearches = JSON.parse(pastSearches)
+      console.log(pastSearches)
+      pastSearches.unshift(SearchQuery)
+      localStorage.setItem("historySearches", JSON.stringify(pastSearches))
+      
+      // get latest 5 results from array
       // Assign last 5 results in localStorage to a button
+      var hCEl = $("#history")
+
+      recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+      recentSearches.forEach(search => {
+            if (!search) {return;}
+            hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+      });
+
+
 
       // make each button call the function with 
-
-var pastSearchEl = $(`<button class="btn btn-outline-light mx-2" onclick="WeatherSearch()">Previous result</button>`)
