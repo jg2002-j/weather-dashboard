@@ -2,9 +2,13 @@
 challenge week 8
 
 
-# <Your-Project-Title>
+# <Weather Dashboard>
 
 ## Description
+
+This challenge involved designing a web page that pulled data from a Server API (OpenWeather API) and displaying that in 2 views: one for today's weather, and one section for a 5-day forecast. The web page also has functionality of storing the user's 5 most recent searches to assist with pulling up that data quicker.
+
+I learnt how to wrap a `fetch` method within a function, and how to access 
 
 Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
 
