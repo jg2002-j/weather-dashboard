@@ -17,7 +17,7 @@
             fivedayforecastarea.empty();
             
             var currentDate = dayjs();
-            var date = currentDate.format("dddd DD/MM/YYYY");
+            var date = currentDate.format("dddd DD MMM YYYY");
 
             // The city name
             fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=29d3c41b285caf441bf342de37c4db4d`)
@@ -54,22 +54,22 @@
                                                       <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weather}">
                                                 </div>
                                                 <div class="container d-flex justify-content-start">
-                                                      <div class="card m-2" style="width: 15rem;">
+                                                      <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                             <div class="card-body">
                                                             <h5 class="card-title"><i class="me-2 bi bi-thermometer-half"></i> Temperature </h5>
-                                                            <p class="card-text">${temperature}</p>
+                                                            <p class="card-text">${temperature}°C</p>
                                                             </div>
                                                       </div>
-                                                      <div class="card m-2" style="width: 15rem;">
+                                                      <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                             <div class="card-body">
                                                             <h5 class="card-title"><i class="me-2 bi bi-wind"></i> Wind</h5>
-                                                            <p class="card-text">${windspeed}</p>
+                                                            <p class="card-text">${windspeed} m/s</p>
                                                             </div>
                                                       </div>
-                                                      <div class="card m-2" style="width: 15rem;">
+                                                      <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                             <div class="card-body">
                                                             <h5 class="card-title"><i class="me-2 bi bi-droplet-half"></i> Humidity</h5>
-                                                            <p class="card-text">${humidity}</p>
+                                                            <p class="card-text">${humidity} %</p>
                                                             </div>
                                                       </div>
                                                 </div>
@@ -78,12 +78,12 @@
                                     `)
                               });
 
-                        var forecastDays = [currentDate.add(1, "day").format("YYYY-MM-DD"), currentDate.add(2, "day").format("YYYY-MM-DD"), currentDate.add(3, "day").format("YYYY-MM-DD"), currentDate.add(4, "day").format("YYYY-MM-DD"), currentDate.add(5, "day").format("YYYY-MM-DD")];
+                        var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
                         
                         fivedayforecastarea.append(`<div class="card"><div class="card-body"><h3 class="card-title" >5-Day Forecast</h3><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`)
 
                         forecastDays.forEach(date => {    
-                              fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date}&appid=29d3c41b285caf441bf342de37c4db4d`)
+                              fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=29d3c41b285caf441bf342de37c4db4d`)
                                     .then(function (response) {
                                           return response.json();
                                     }).then(function (data){
@@ -99,17 +99,17 @@
                                           var forecastwindspeed = data.wind.max.speed;
 
                                           $("#forecastcards").append(`
-                                          <div class="card m-2" style="width: 15rem;">
+                                          <div class="card m-2 bg-transparent" style="width: 15rem;">
                                                 <div class="card-body">
                                                       <div class="d-flex flex-column justify-content-between align-content-center">
                                                             <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon">
                                                             <div class="d-flex flex-column justify-content-evenly">
-                                                                  <h5>${date}</h5>
+                                                                  <h5>${date.format("dddd DD MMM YYYY")}</h5>
                                                             </div>
                                                       </div>
-                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}</p>
-                                                      <p class="card-text mb-1"><i class="me-2 bi bi-wind"></i> ${forecastwindspeed}</p>
-                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half"></i>${forecasthumidity}</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}°C</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-wind"></i> ${forecastwindspeed} m/s</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half"></i>${forecasthumidity} %</p>
                                                 </div>
                                           </div>
                                           `)
