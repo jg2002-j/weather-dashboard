@@ -13,24 +13,51 @@
             console.log(SearchQuery);
             
             var currentDate = dayjs();
-            var cityName = "";
             var date = currentDate.format("dddd DD/MM/YYYY");
-            var weatherIcon = "";
-            var temperature = "";
-            var humidity = "";
-            var windspeed = "";
 
-            console.log(currentDate.format("HH:mm:ss DD/MM/YYYY"))
+
+            // The date
             console.log(date)
 
             // The city name
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid="29d3c41b285caf441bf342de37c4db4d"`)
+            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=29d3c41b285caf441bf342de37c4db4d`)
                   .then(function (response) {
                         return response.json();
                   }).then(function (data){
-                        console.log(data)
-                  });            
+                        var lat = data[0].lat;
+                        var lon = data[0].lon;
+                        console.log(`latitude: ${lat}, longitude: ${lon}`)
+                  
+                        fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=alerts,minutely&appid=29d3c41b285caf441bf342de37c4db4d`)
+                              .then(function (response) {
+                                    return response.json();
+                              }).then(function (data){
+                                    
+                                    var weather = data.current.weather[0].main;
+                                    console.log("Weather is " + weather);
+                                    
+                                    // An icon representation of weather conditions
+                                    var weatherIcon = data.current.weather[0].icon;
+                                    console.log(weatherIcon);
+                                    console.log(`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`)
+                                    
+                                    // The temperature
+                                    var temperature = data.current.temp;
+                                    console.log("Temperature is " + temperature);
+                                    
+                                    // The humidity
+                                    var humidity = data.current.humidity;
+                                    console.log("Humidity is " + humidity)
+                                    
+                                    // The wind speed
+                                    var windspeed = data.current.wind_speed;
+                                    console.log("Windspeed is " + windspeed);
+                              });
+                  
+                  .append(``)
 
+
+                  });            
 
       }
 
@@ -41,15 +68,10 @@
 
 
 
-            // The date
 
-            // An icon representation of weather conditions
 
-            // The temperature
 
-            // The humidity
 
-            // The wind speed
 
       // When a user view future weather conditions for that city they are presented with a 5-day forecast that displays:
 
