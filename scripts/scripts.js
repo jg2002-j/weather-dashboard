@@ -1,9 +1,9 @@
 var FormEl = $("#search-form");
 var InputEl = $("#search-input");
+var hCEl = $("#history")
 
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
-
 
 function WeatherSearch(event){
       event.preventDefault();
@@ -22,7 +22,8 @@ function WeatherSearch(event){
             }).then(function (data){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
-                  var cityName = data[0].name + ", " + data[0].country;
+                  var refinedSearch = data[0].name;
+                  var cityName = refinedSearch + ", " + data[0].country;
             
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely&appid=29d3c41b285caf441bf342de37c4db4d`)
                         .then(function (response) {
@@ -68,20 +69,6 @@ function WeatherSearch(event){
                                     </div>
                               </div>
                               `)
-                              var pastSearches = localStorage.getItem("historySearches")
-                              pastSearches = JSON.parse(pastSearches)
-                              pastSearches.unshift(cityName)
-                              console.log(pastSearches)
-                              localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                        
-                              var hCEl = $("#history")
-                        
-                              recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-                              hCEl.empty()
-                              recentSearches.forEach(search => {
-                                    if (!search) {return;}
-                                    hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-                              });
                         });
 
                   var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
@@ -115,10 +102,37 @@ function WeatherSearch(event){
                                     `)
 
                               });
-                        });            
-            }); 
+                        });
+                        
+                        if (refinedSearch) {
+                              
+                        } else {
+                              
+                        }
+
+                        pastSearches.unshift(refinedSearch)
+                        localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                                          
+                        recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+
+                        hCEl.empty()
+                        recentSearches.forEach(search => {
+                              if (!search) {return;}
+                              hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+                        });
+            });
 }
 
+var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
 
+if (!pastSearches){
+      pastSearches = [""];
+      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+}
       
 FormEl.on("submit", WeatherSearch)
+
+function clearHistory() {
+      hCEl.empty()
+      pastSearches = [""];
+}
