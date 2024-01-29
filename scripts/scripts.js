@@ -16,7 +16,7 @@ function WeatherSearch(event){
       var currentDate = dayjs();
       var date = currentDate.format("dddd DD MMM YYYY");
 
-      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=29d3c41b285caf441bf342de37c4db4d`)
+      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid={apikey}`)
             .then(function (response) {
                   return response.json();
             }).then(function (data){
@@ -25,7 +25,7 @@ function WeatherSearch(event){
                   var refinedSearch = data[0].name;
                   var cityName = refinedSearch + ", " + data[0].country;
             
-                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely&appid=29d3c41b285caf441bf342de37c4db4d`)
+                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely&appid={apikey`)
                         .then(function (response) {
                               return response.json();
                         }).then(function (data){
@@ -76,7 +76,7 @@ function WeatherSearch(event){
                   fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
 
                   forecastDays.forEach(date => {    
-                        fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=29d3c41b285caf441bf342de37c4db4d`)
+                        fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid={apikey`)
                               .then(function (response) {
                                     return response.json();
                               }).then(function (data){
