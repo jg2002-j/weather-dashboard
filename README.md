@@ -8,14 +8,7 @@ challenge week 8
 
 This challenge involved designing a web page that pulled data from a Server API (OpenWeather API) and displaying that in 2 views: one for today's weather, and one section for a 5-day forecast. The web page also has functionality of storing the user's 5 most recent searches to assist with pulling up that data quicker.
 
-I learnt how to wrap a `fetch` method within a function, and how to access 
-
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+I learnt how to wrap a `fetch` method within a function, and how to convert the received `.JSON` into a readable `object`, from which I could interpret information in a user-friendly way. It also allowed me to practice `jQuery` and vanilla `JavaScript`.
 
 ## Table of Contents (Optional)
 
@@ -28,7 +21,7 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+No installation required. Access the deployed GitPages website [here.](https://jg2002-j.github.io/weather-dashboard/)
 
 ## Usage
 
@@ -42,12 +35,17 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
+[OpenWeather API](https://openweathermap.org/)
 
 ## License
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
+MIT License. See included [LICENSE](https://github.com/jg2002-j/weather-dashboard/blob/main/LICENSE).
+
+
+![HTML Badge](https://img.shields.io/badge/HTML-white?logo=html5&logoColor=%23E34F26")
+            ![CSS Badge](https://img.shields.io/badge/CSS-white?logo=CSS3&logoColor=%231572B6)
+            ![JS Badge](https://img.shields.io/badge/JavaScript-white?logo=javascript&logoColor=%23F7DF1E)
+            ![](https://img.shields.io/badge/Bootstrap-white?logo=bootstrap&logoColor=%237952B3)
+            ![](https://img.shields.io/badge/jQuery-white?logo=jquery&logoColor=%230769AD)
+            ![](https://img.shields.io/badge/Git-white?logo=git&logoColor=%23F05032)
+            ![](https://img.shields.io/badge/GitHub-white?logo=github&logoColor=%23181717)
