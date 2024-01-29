@@ -1,8 +1,9 @@
-var FormEl = $("#search-form")
-var InputEl = $("#search-input")
+var FormEl = $("#search-form");
+var InputEl = $("#search-input");
 
-var currentForecastarea = $("#today")
-var fivedayforecastarea = $("#forecast")
+var currentForecastarea = $("#today");
+var fivedayforecastarea = $("#forecast");
+
 
 function WeatherSearch(event){
       event.preventDefault();
@@ -71,14 +72,13 @@ function WeatherSearch(event){
 
                   var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
                   
-                  fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`)
+                  fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
 
                   forecastDays.forEach(date => {    
                         fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=29d3c41b285caf441bf342de37c4db4d`)
                               .then(function (response) {
                                     return response.json();
                               }).then(function (data){
-                                    console.log(data)
                                     // var forecastweatherIcon = data.current.weather[0].icon;
                                     var forecasttemperatureMax = data.temperature.max;
                                     var forecasttemperatureMin = data.temperature.min;
@@ -102,18 +102,28 @@ function WeatherSearch(event){
 
                               });
                         });            
-            });
-      
-      
-      
-      // When a user click on a city in the search history they are again presented with current and future conditions for that city
-            // Add old search results to localStorage
-            // Assign last 5 results in localStorage to a button
-            // make each button call the function with 
+            });  
 
-            
+      var hCEl = $("#history")
+      console.log(hCEl)
+      hCEl.append(`
+            var pastSearchEl = $("<button class="btn btn-outline-light mx-2" onclick="WeatherSearch()">Previous result</button>")
+      `)
+
+
 }
 
+
+      
 FormEl.on("submit", WeatherSearch)
       
+
+// When a user click on a city in the search history they are again presented with current and future conditions for that city
+
+      // Add old search results to localStorage
+
+      // Assign last 5 results in localStorage to a button
+
+      // make each button call the function with 
+
 var pastSearchEl = $(`<button class="btn btn-outline-light mx-2" onclick="WeatherSearch()">Previous result</button>`)
