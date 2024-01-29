@@ -72,14 +72,18 @@ function WeatherSearch(event){
                         });
 
 
-                  // It's 5 days...just have to access it in a certain way. It goes up in steps of 3 hours. 8 indexes = 24 hours and should start from index 7 because of zero index
                   
                   var currentUnixTimestamp = dayjs().unix()
                   
                   fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${currentUnixTimestamp}&appid=d9fb8f659f461f86c935ea25def8363c`)
-
+                        .then(function (response){
+                              return response.json();
+                        }).then (function (data){
+                              console.log(data)
+                              // It's 5 days...just have to access it in a certain way. It goes up in steps of 3 hours. 8 indexes = 24 hours and should start from index 7 because of zero index
+                              fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
+                        })
                   
-                  fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
 
                   // var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
                   
