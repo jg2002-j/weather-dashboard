@@ -68,6 +68,20 @@ function WeatherSearch(event){
                                     </div>
                               </div>
                               `)
+                              var pastSearches = localStorage.getItem("historySearches")
+                              pastSearches = JSON.parse(pastSearches)
+                              pastSearches.unshift(cityName)
+                              console.log(pastSearches)
+                              localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                        
+                              var hCEl = $("#history")
+                        
+                              recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+                              hCEl.empty()
+                              recentSearches.forEach(search => {
+                                    if (!search) {return;}
+                                    hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+                              });
                         });
 
                   var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
@@ -102,36 +116,9 @@ function WeatherSearch(event){
 
                               });
                         });            
-            });  
+            }); 
 }
 
 
       
 FormEl.on("submit", WeatherSearch)
-      
-
-// When a user click on a city in the search history they are again presented with current and future conditions for that city
-
-      // Add old search results to localStorage array
-
-      var SearchQuery = "Madrid"
-      localStorage.setItem("historySearches", JSON.stringify([]))
-      var pastSearches = localStorage.getItem("historySearches")
-      pastSearches = JSON.parse(pastSearches)
-      console.log(pastSearches)
-      pastSearches.unshift(SearchQuery)
-      localStorage.setItem("historySearches", JSON.stringify(pastSearches))
-      
-      // get latest 5 results from array
-      // Assign last 5 results in localStorage to a button
-      var hCEl = $("#history")
-
-      recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-      recentSearches.forEach(search => {
-            if (!search) {return;}
-            hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-      });
-
-
-
-      // make each button call the function with 
