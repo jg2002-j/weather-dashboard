@@ -55,8 +55,17 @@
           
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">5-Day Forecast</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h3 class="card-title">5-Day Forecast</h3>
+
+              <div class="card m-2" style="width: 10rem;">
+                <div class="card-body">
+                <h5 class="card-title">Next Day</h5>
+                <p class="card-text"><i class="me-2 bi bi-thermometer-half"></i>${temperature}</p>
+                <p class="card-text"><i class="me-2 bi bi-wind"></i> ${windspeed}</p>
+                <p class="card-text"><i class="me-2 bi bi-droplet-half"></i>${humidity}</p>
+                </div>
+              </div>
+
             </div>
           </div>
 
