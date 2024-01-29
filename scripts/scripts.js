@@ -4,8 +4,9 @@ var InputEl = $("#search-input")
 var currentForecastarea = $("#today")
 var fivedayforecastarea = $("#forecast")
 
-function WeatherSearch(event, SearchQuery){
+function WeatherSearch(event){
       event.preventDefault();
+      
       SearchQuery = InputEl.val();
       InputEl.val("");
       currentForecastarea.empty();
@@ -38,8 +39,8 @@ function WeatherSearch(event, SearchQuery){
                                     <div class="card-body">
                                           <div class="d-flex justify-content-between align-content-center">
                                                 <div class="d-flex flex-column justify-content-evenly">
-                                                      <h3 class="card-title">${cityName}</h3>
-                                                      <h5>Today: ${date}</h5>
+                                                      <h2 class="card-title">${cityName}</h2>
+                                                      <h4>Today: ${date}</h4>
                                                 </div>
                                                 <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weather}">
                                           </div>
@@ -70,7 +71,7 @@ function WeatherSearch(event, SearchQuery){
 
                   var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
                   
-                  fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h3 class="card-title" >5-Day Forecast</h3><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`)
+                  fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`)
 
                   forecastDays.forEach(date => {    
                         fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=29d3c41b285caf441bf342de37c4db4d`)
@@ -87,7 +88,7 @@ function WeatherSearch(event, SearchQuery){
                                     <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
                                           <div class="card-body">
                                                 <div class="d-flex flex-column justify-content-between align-content-center">
-                                                      <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
+                                                      <img class="mb-3" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
                                                       <div class="d-flex flex-column justify-content-evenly">
                                                             <h5>${date.format("dddd DD MMM YYYY")}</h5>
                                                       </div>
@@ -106,11 +107,13 @@ function WeatherSearch(event, SearchQuery){
       
       
       // When a user click on a city in the search history they are again presented with current and future conditions for that city
-      
-      <button class="btn btn-outline-light mx-2">Previous result</button>
+            // Add old search results to localStorage
+            // Assign last 5 results in localStorage to a button
+            // make each button call the function with 
 
+            
 }
 
 FormEl.on("submit", WeatherSearch)
-
-$("#pastsearch").on("click")
+      
+var pastSearchEl = $(`<button class="btn btn-outline-light mx-2" onclick="WeatherSearch()">Previous result</button>`)
