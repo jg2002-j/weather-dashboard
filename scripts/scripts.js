@@ -13,24 +13,19 @@
             event.preventDefault();
             var SearchQuery = InputEl.val();
             InputEl.val("");
-            console.log(SearchQuery);
+            currentForecastarea.empty();
+            fivedayforecastarea.empty();
             
             var currentDate = dayjs();
             var date = currentDate.format("dddd DD/MM/YYYY");
-
-
-            // The date
-            console.log(date)
 
             // The city name
             fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=29d3c41b285caf441bf342de37c4db4d`)
                   .then(function (response) {
                         return response.json();
                   }).then(function (data){
-                        console.log(data)
                         var lat = data[0].lat;
                         var lon = data[0].lon;
-                        console.log(`latitude: ${lat}, longitude: ${lon}`)
                         var cityName = data[0].name + ", " + data[0].country;
                   
                         fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely&appid=29d3c41b285caf441bf342de37c4db4d`)
@@ -58,7 +53,7 @@
                                                       </div>
                                                       <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weather}">
                                                 </div>
-                                                <div class="container d-flex flex-nowrap justify-content-start">
+                                                <div class="container d-flex justify-content-start">
                                                       <div class="card m-2" style="width: 15rem;">
                                                             <div class="card-body">
                                                             <h5 class="card-title"><i class="me-2 bi bi-thermometer-half"></i> Temperature </h5>
@@ -84,12 +79,10 @@
                               });
 
                         var forecastDays = [currentDate.add(1, "day").format("YYYY-MM-DD"), currentDate.add(2, "day").format("YYYY-MM-DD"), currentDate.add(3, "day").format("YYYY-MM-DD"), currentDate.add(4, "day").format("YYYY-MM-DD"), currentDate.add(5, "day").format("YYYY-MM-DD")];
-                        console.log(forecastDays)
                         
                         fivedayforecastarea.append(`<div class="card"><div class="card-body"><h3 class="card-title" >5-Day Forecast</h3><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`)
 
                         forecastDays.forEach(date => {    
-                              console.log(date)                          
                               fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date}&appid=29d3c41b285caf441bf342de37c4db4d`)
                                     .then(function (response) {
                                           return response.json();
@@ -106,8 +99,7 @@
                                           var forecastwindspeed = data.wind.max.speed;
 
                                           $("#forecastcards").append(`
-                                          
-                                          <div class="card m-2">
+                                          <div class="card m-2" style="width: 15rem;">
                                                 <div class="card-body">
                                                       <div class="d-flex flex-column justify-content-between align-content-center">
                                                             <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon">
@@ -115,18 +107,17 @@
                                                                   <h5>${date}</h5>
                                                             </div>
                                                       </div>
-                                                      <p class="card-text"><i class="me-2 bi bi-thermometer-half"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}</p>
-                                                      <p class="card-text"><i class="me-2 bi bi-wind"></i> ${forecastwindspeed}</p>
-                                                      <p class="card-text"><i class="me-2 bi bi-droplet-half"></i>${forecasthumidity}</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-wind"></i> ${forecastwindspeed}</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half"></i>${forecasthumidity}</p>
                                                 </div>
                                           </div>
-                                          
                                           `)
 
-                                          });
-                                    });            
-                        });
-                  }
+                                    });
+                              });            
+                  });
+      }
 
       FormEl.on("submit", WeatherSearch)
 
@@ -135,19 +126,5 @@
 
 
 
-
-
-
-
-
-      // When a user view future weather conditions for that city they are presented with a 5-day forecast that displays:
-
-            // The date
-
-            // An icon representation of weather conditions
-
-            // The temperature
-
-            // The humidity
 
       // When a user click on a city in the search history they are again presented with current and future conditions for that city
