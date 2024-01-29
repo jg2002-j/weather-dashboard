@@ -104,22 +104,23 @@ function WeatherSearch(event){
                               });
                         });
                         
-                        if (refinedSearch) {
-                              
+                        if (pastSearches.includes(refinedSearch)) {
+                              console.log("This value already exists.")
                         } else {
-                              
+                              pastSearches.unshift(refinedSearch)
+                              localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                                                
+                              recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+                              console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+                              console.log(`Recent searches: ${recentSearches}`)
+      
+                              hCEl.empty()
+                              recentSearches.forEach(search => {
+                                    if (!search) {return;}
+                                    hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+                              });
                         }
 
-                        pastSearches.unshift(refinedSearch)
-                        localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                                          
-                        recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-
-                        hCEl.empty()
-                        recentSearches.forEach(search => {
-                              if (!search) {return;}
-                              hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-                        });
             });
 }
 
@@ -135,4 +136,5 @@ FormEl.on("submit", WeatherSearch)
 function clearHistory() {
       hCEl.empty()
       pastSearches = [""];
+      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
 }
