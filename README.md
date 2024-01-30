@@ -26,7 +26,7 @@ No installation required. Access the deployed GitPages website [here.](https://j
 - Enter in desired City/Location using the Search bar.
 - Alternatively, use a past search result which is stored result by clicking on the relevant button.
 
-![Deployed Website Screenshot](./assets/screenshot.png)
+![Deployed Website Screenshot](./assets/deployed.png)
 
 ## Credits
 
