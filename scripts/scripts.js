@@ -6,9 +6,8 @@ var historyButton = $("#historyButton")
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
-var pastOWsearchqueries = {}; //an object of the latest city that the openweatehr api interprets from user input 
+var lastSearch = {}; //an object of the latest city that the openweatehr api interprets from user input 
 var pastSearches = [];
-recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -27,7 +26,7 @@ function runSearch(){
                   } else if (!refinedSearch) {
                         return;
                   } else {
-                        pastOWsearchqueries.latest(refinedSearch);
+                        lastSearch.latest(refinedSearch);
                   }
 
                   var cityName = refinedSearch + ", " + data[0].country;                 
@@ -154,11 +153,27 @@ function runSearch(){
 
 // function: log user input in local history
 function searchToHistory(){
+      // get the last search
+      var lastSearchstring = lastSearch.latest;
+      // push it to an array
+      pastSearches.unshift(lastSearchstring)
+      // push the array to local storage
+      localStorage.setItem("SearchHistory", JSON.stringify(pastSearches))
 
 }
 
 // load history into five buttons below search bar
 function loadHistory(){
+      // get the array from local storage
+      pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
+      // get the last 5 results from the array
+      var recent5searches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
+      // IF there are any, clear any existing buttons
+      hCEl.empty()
+      // FOR EACH item in the array, generate a new button
+      recent5searches.forEach(searchItem => {
+            
+      });
 
 }
 
