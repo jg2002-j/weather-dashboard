@@ -30,7 +30,6 @@ function runSearch(){
                         .then(function (response) {
                               return response.json();
                         }).then(function (data){
-                              console.log(data)                  
                               var weather = data.current.weather[0].main;
                               var weatherIcon = data.current.weather[0].icon;
                               var temperature = data.current.temp;
@@ -38,7 +37,7 @@ function runSearch(){
                               var windspeed = data.current.wind_speed;
 
                               currentForecastarea.append(`
-                              <div class="card text-bg-dark">
+                              <div class="card rounded-5 p-3 text-bg-dark border-secondary">
                                     <div class="card-body">
                                           <div class="d-flex justify-content-between align-content-center">
                                                 <div class="d-flex flex-column justify-content-evenly">
@@ -48,19 +47,19 @@ function runSearch(){
                                                 <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weather}">
                                           </div>
                                           <div class="container d-flex justify-content-start">
-                                                <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                                <div class="card rounded-4 m-2 text-bg-dark border-secondary" style="width: 15rem;">
                                                       <div class="card-body">
                                                       <h5 class="card-title"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i> Temperature </h5>
                                                       <p class="card-text">${temperature}°C</p>
                                                       </div>
                                                 </div>
-                                                <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                                <div class="card rounded-4 m-2 text-bg-dark border-secondary" style="width: 15rem;">
                                                       <div class="card-body">
                                                       <h5 class="card-title"><i class="me-2 bi bi-wind" style="color: #EEEBD0;"></i> Wind</h5>
                                                       <p class="card-text">${windspeed} m/s</p>
                                                       </div>
                                                 </div>
-                                                <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                                <div class="card rounded-4 m-2 text-bg-dark border-secondary" style="width: 15rem;">
                                                       <div class="card-body">
                                                       <h5 class="card-title"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i> Humidity</h5>
                                                       <p class="card-text">${humidity} %</p>
@@ -120,11 +119,9 @@ function runSearch(){
                               }
                         
                               var forecastDays = [day2, day3, day4, day5, day6]
-                              console.log(forecastDays)
-
                               forecastDays.forEach(day => {    
                                  $("#forecastcards").append(`
-                                    <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                    <div class="card rounded-5 p-2 mx-2 text-bg-dark border-secondary" style="width: 15rem;">
                                           <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="d-flex flex-column justify-content-between align-content-center">
                                                       <img class="mb-3" src="https://openweathermap.org/img/wn/${day.weathericon}@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
@@ -149,13 +146,11 @@ function runSearch(){
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
-      console.log("lastSearch object = ", lastSearch)
       var lastSearchstring = lastSearch.latest;
-      console.log("lastSearchstring = lastSearch.latest = " + lastSearchstring)
       // push it to an array
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
       if (!pastSearches) {pastSearches = [];}
-      pastSearches.unshift(`Madrid`)
+      pastSearches.unshift(lastSearchstring)
       // push the array to local storage
       localStorage.setItem("SearchHistory", JSON.stringify(pastSearches))
 }
@@ -198,9 +193,7 @@ function fromFormSearchQuery(event){
       currentForecastarea.empty();
       fivedayforecastarea.empty();
       
-      runSearch();
-      searchToHistory();
-      loadHistory();
+      runSearch().then(searchToHistory()).then(loadHistory());
 }
 
 // function: create search query > if from history, use value of clicked button
