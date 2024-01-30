@@ -147,6 +147,8 @@ function runSearch(){
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
+      console.log("lastSearch is ",lastSearch)
+      console.log("lastSearch.latest is ",lastSearch.latest)
       var lastSearchstring = lastSearch.latest;
       // push it to an array
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
@@ -206,6 +208,7 @@ function fromFormSearchQuery(event){
           
       historyPromise.then(
             function(value) {
+                  console.log(value, "Function reached here, which means promise.then() worked")
                   searchToHistory();
                   loadHistory();
             },
