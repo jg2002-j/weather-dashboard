@@ -150,32 +150,32 @@ function runSearch(){
 function searchToHistory(){
       console.log(pastOWsearchqueries);
 
-      // if local storage is blank, create a property there called historySearches with an array of values
+      // if local storage is blank, continue
       if (!pastSearches){
-            pastSearches = [""];
-            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+      //else get the values stored there and set it into an array called pastSearches
+      } else { 
+            pastSearches = JSON.parse(localStorage.getItem("historySearches"));
       }
+      
+      console.log(pastSearches)
 
+      // then add the latest unique search query to that array and re-set that array as a local storage item
       pastSearches.unshift(pastOWsearchqueries[0])
       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                        
-      recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-      console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-      console.log(`Recent searches: ${recentSearches}`)
-
-      hCEl.empty()
-      recentSearches.forEach(search => {
-            if (!search) {return;}
-            hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-      });
-
-
-// function clearHistory() {
-      //       hCEl.empty()
-      //       pastSearches = [""];
-      //       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-      // }
 }
+
+function loadHistory(){
+            // create an array of the five most recent searches
+            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+            console.log(`Recent searches: ${recentSearches}`)
+      
+            hCEl.empty()
+            recentSearches.forEach(search => {
+                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+            });
+}
+
 
 // function: create search query > if from search bar, use value of input field
 function fromFormSearchQuery(event){
