@@ -23,14 +23,14 @@ function runSearch(){
                   refinedSearch = data[0].name;
 
                   // if the recent 5 searches have this search then exit
-                  if (recentSearches.includes(refinedSearch)) {
+                  if (pastSearches.includes(refinedSearch)) {
                         return;
                   // or if this search is null, then exit
                   } else if (!refinedSearch) {
                         return;
                   // else put this search in the lastsearch object
                   } else {
-                        lastSearch.latest(refinedSearch);
+                        lastSearch.latest = refinedSearch;
                   }
 
                   var cityName = refinedSearch + ", " + data[0].country;                 
@@ -158,7 +158,9 @@ function runSearch(){
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
+      console.log(lastSearch)
       var lastSearchstring = lastSearch.latest;
+      console.log(lastSearchstring)
       // push it to an array
       pastSearches.unshift(lastSearchstring)
       // push the array to local storage
