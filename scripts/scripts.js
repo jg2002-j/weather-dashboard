@@ -16,7 +16,26 @@ function WeatherSearch(event){
       var currentDate = dayjs();
       var date = currentDate.format("dddd DD MMM YYYY");
 
-      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=d9fb8f659f461f86c935ea25def8363c`)
+      if (!SearchQuery){
+            return;
+      } else if (pastSearches.includes(refinedSearch)) {
+            console.log("This value already exists.")
+      } else {
+            pastSearches.unshift(refinedSearch)
+            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                              
+            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+            console.log(`Recent searches: ${recentSearches}`)
+      
+            hCEl.empty()
+            recentSearches.forEach(search => {
+                  if (!search) {return;}
+                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+            });
+      }
+
+      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=apikey`)
             .then(function (response) {
                   return response.json();
             }).then(function (data){
@@ -25,7 +44,7 @@ function WeatherSearch(event){
                   var refinedSearch = data[0].name;
                   var cityName = refinedSearch + ", " + data[0].country;
             
-                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
+                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=apikey`)
                         .then(function (response) {
                               return response.json();
                         }).then(function (data){
@@ -145,23 +164,6 @@ function WeatherSearch(event){
             });
 };
                         
-//       if (pastSearches.includes(refinedSearch)) {
-//             console.log("This value already exists.")
-//       } else {
-//             pastSearches.unshift(refinedSearch)
-//             localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                              
-//             recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-//             console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-//             console.log(`Recent searches: ${recentSearches}`)
-
-//             hCEl.empty()
-//             recentSearches.forEach(search => {
-//                   if (!search) {return;}
-//                   hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-//             });
-//       }
-
 var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
 
 if (!pastSearches){
