@@ -79,7 +79,7 @@ function runSearch(){
                               fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
                               
                               var day2 = {
-                                    date: dayjs(data.daily[1].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[1].dt).format("dddd DD MMM"),
                                     weather: data.daily[1].summary,
                                     weathericon: data.daily[1].weather[0].icon,
                                     tempmin: data.daily[1].temp.min,
@@ -88,7 +88,7 @@ function runSearch(){
                                     humidity: data.daily[1].humidity,
                               }
                               var day3 = {
-                                    date: dayjs(data.daily[2].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[2].dt).format("dddd DD MMM"),
                                     weather: data.daily[2].summary,
                                     weathericon: data.daily[2].weather[0].icon,
                                     tempmin: data.daily[2].temp.min,
@@ -97,7 +97,7 @@ function runSearch(){
                                     humidity: data.daily[2].humidity,
                               }
                               var day4 = {
-                                    date: dayjs(data.daily[3].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[3].dt).format("dddd DD MMM"),
                                     weather: data.daily[3].summary,
                                     weathericon: data.daily[3].weather[0].icon,
                                     tempmin: data.daily[3].temp.min,
@@ -106,7 +106,7 @@ function runSearch(){
                                     humidity: data.daily[3].humidity,
                               }
                               var day5 = {
-                                    date: dayjs(data.daily[4].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[4].dt).format("dddd DD MMM"),
                                     weather: data.daily[4].summary,
                                     weathericon: data.daily[4].weather[0].icon,
                                     tempmin: data.daily[4].temp.min,
@@ -115,7 +115,7 @@ function runSearch(){
                                     humidity: data.daily[4].humidity,
                               }
                               var day6 = {
-                                    date: dayjs(data.daily[5].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[5].dt).format("dddd DD MMM"),
                                     weather: data.daily[5].summary,
                                     weathericon: data.daily[5].weather[0].icon,
                                     tempmin: data.daily[5].temp.min,
@@ -222,6 +222,3 @@ loadHistory();
 // set up event listeners so functions run when needed:
 FormEl.on("submit", fromFormSearchQuery);
 historyButton.on("click", fromHistorySearchQuery);
-
-
-console.log(dayjs(1706616000).format("dddd DD MMM"))
