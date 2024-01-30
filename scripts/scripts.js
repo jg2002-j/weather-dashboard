@@ -5,6 +5,7 @@ var hCEl = $("#history")
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
+// function: fetch data from openweather api and populate on page 
 function runSearch(){
       fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=apikey`)
             .then(function (response) {
@@ -135,38 +136,8 @@ function runSearch(){
             });
 };
 
-function searchToHistory(){}
-
-
-
-// function: create search query > if from search bar, use value of input field
-function fromFormSearchQuery(event){
-      event.preventDefault();
-      
-      var SearchQuery = InputEl.val();
-      InputEl.val("");
-      currentForecastarea.empty();
-      fivedayforecastarea.empty();
-      
-      var currentDate = dayjs();
-      var date = currentDate.format("dddd DD MMM YYYY");
-      // function: run search
-      runSearch();
-      // function: log value of input field into history
-      searchToHistory();
-}
-
-
-
-// function: create search query > if from history, use value of clicked button
-function fromHistorySearchQuery(){
-      console.log($(this));
-      var SearchQuery = ""; 
-      // function: run search
-      runSearch();
-}
-
-
+// function: log user input in a history that displays below search bar
+function searchToHistory(){
 // HISTORY STUFF
 
 // if (pastSearches.includes(refinedSearch)) {
@@ -194,10 +165,38 @@ function fromHistorySearchQuery(){
 //       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
 // }
       
-// FormEl.on("submit", WeatherSearch)
 
 // function clearHistory() {
-//       hCEl.empty()
-//       pastSearches = [""];
-//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-// }
+      //       hCEl.empty()
+      //       pastSearches = [""];
+      //       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+      // }
+}
+
+// function: create search query > if from search bar, use value of input field
+function fromFormSearchQuery(event){
+      event.preventDefault();
+      
+      SearchQuery = InputEl.val();
+      InputEl.val("");
+      currentForecastarea.empty();
+      fivedayforecastarea.empty();
+      
+      var currentDate = dayjs();
+      var date = currentDate.format("dddd DD MMM YYYY");
+      // function: run search
+      runSearch();
+      // function: log value of input field into history
+      searchToHistory();
+}
+
+// function: create search query > if from history, use value of clicked button
+function fromHistorySearchQuery(){
+      console.log($(this));
+      SearchQuery = ""; 
+      // function: run search
+      runSearch();
+}
+
+// set up event listeners so functions run when needed:
+FormEl.on("submit", fromFormSearchQuery)
