@@ -23,6 +23,8 @@ function runSearch(){
 
                   if (pastOWsearchqueries.includes(refinedSearch)) {
                         return;
+                  } else if (!refinedSearch) {
+                        return;
                   } else {
                         pastOWsearchqueries.unshift(refinedSearch);
                   }
@@ -220,3 +222,6 @@ loadHistory();
 // set up event listeners so functions run when needed:
 FormEl.on("submit", fromFormSearchQuery);
 historyButton.on("click", fromHistorySearchQuery);
+
+
+console.log(dayjs(1706616000).format("dddd DD MMM"))
