@@ -124,7 +124,7 @@ function WeatherSearch(event){
                               forecastDays.forEach(day => {    
                                  $("#forecastcards").append(`
                                     <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
-                                          <div class="card-body">
+                                          <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="d-flex flex-column justify-content-between align-content-center">
                                                       <img class="mb-3" src="https://openweathermap.org/img/wn/${day.weathericon}@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
                                                       <div class="d-flex flex-column justify-content-evenly">
@@ -132,9 +132,11 @@ function WeatherSearch(event){
                                                             <h6 class="card-subtitle mb-2 text-body-light">${day.weather}</h6>
                                                       </div>
                                                 </div>
-                                                <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${day.tempmin} — ${day.tempmax}°C</p>
-                                                <p class="card-text mb-1"><i class="me-2 bi bi-wind" style="color: #EEEBD0;"></i> ${day.windspeed} m/s</p>
-                                                <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i>${day.humidity} %</p>
+                                                <div>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${day.tempmin} — ${day.tempmax}°C</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-wind" style="color: #EEEBD0;"></i> ${day.windspeed} m/s</p>
+                                                      <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i>${day.humidity} %</p>
+                                                </div>
                                           </div>
                                     </div>
                                     `)
