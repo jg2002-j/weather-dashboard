@@ -20,7 +20,8 @@ function runSearch(){
             }).then(function (data){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
-                  refinedSearch = data[0].name;
+                  var refinedSearch = data[0].name;
+                  searchToHistory(refinedSearch);   // we pass the VALUE (at the POINT we have DATA)
                   lastSearch.latest = refinedSearch;
                   var cityName = refinedSearch + ", " + data[0].country;                 
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
@@ -140,13 +141,15 @@ function runSearch(){
                   console.log(`line 140: lastSearch.latest is ${lastSearch.latest} and lastSearch is`, lastSearch)
             }).then(function(){
                   console.log(`line 142: lastSearch.latest is ${lastSearch.latest} and lastSearch is`, lastSearch)
-                  console.log
                   return "SearchDone"
             });
+            
+          //  return "SearchDone"
 };
 
 // function: log user input in local history
-function searchToHistory(){
+function searchToHistory(searchTerm){
+      console.log("City Name: ", searchTerm)
       // get the last search
       console.log("line 154: lastSearch is ",lastSearch)
       console.log("line 155: lastSearch.latest is ",lastSearch.latest)
@@ -198,11 +201,13 @@ function fromFormSearchQuery(event){
       fivedayforecastarea.empty();
 
       let historyPromise = new Promise(function(myResolve, myReject) {
-            let x = runSearch(); 
+            let x = runSearch();    // we would need to make this FUNCTION ASYNCHRONOUS
             console.log("x is", x)         
             if (x == "SearchDone") {
+                  console.log("Success...")
                   myResolve();
             } else {
+                  console.log("Fail...")
                   myReject();
             }
       });
