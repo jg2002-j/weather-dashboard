@@ -6,8 +6,9 @@ var historyButton = $("#historyButton")
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
-var pastOWsearchqueries = []; //an array of the cities that the openweatehr api interprets from user input 
+var pastOWsearchqueries = {}; //an object of the latest city that the openweatehr api interprets from user input 
 var pastSearches = [];
+recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -21,12 +22,12 @@ function runSearch(){
                   var lon = data[0].lon;
                   refinedSearch = data[0].name;
 
-                  if (pastOWsearchqueries.includes(refinedSearch)) {
+                  if (recentSearches.includes(refinedSearch)) {
                         return;
                   } else if (!refinedSearch) {
                         return;
                   } else {
-                        pastOWsearchqueries.unshift(refinedSearch);
+                        pastOWsearchqueries.latest(refinedSearch);
                   }
 
                   var cityName = refinedSearch + ", " + data[0].country;                 
@@ -172,7 +173,6 @@ function searchToHistory(){
 // load history into five buttons below search bar
 function loadHistory(){
             // create an array of the five most recent searches
-            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
             console.log(`recentSearches: ${recentSearches}`)
       
             // clear all the existing buttons
