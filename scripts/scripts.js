@@ -1,9 +1,12 @@
 var FormEl = $("#search-form");
 var InputEl = $("#search-input");
-var hCEl = $("#history")
+var hCEl = $("#history");
 
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
+
+var refinedSearch = ""; // runSearch() sets refined search as the city name 
+var pastSearches = JSON.parse(localStorage.getItem("historySearches"));
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -13,7 +16,7 @@ function runSearch(){
             }).then(function (data){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
-                  var refinedSearch = data[0].name;
+                  refinedSearch = data[0].name;
                   var cityName = refinedSearch + ", " + data[0].country;
             
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=apikey`)
@@ -138,9 +141,8 @@ function runSearch(){
 
 // function: log user input in a history that displays below search bar
 function searchToHistory(){
-// HISTORY STUFF
-
-// if (pastSearches.includes(refinedSearch)) {
+      
+      // if (pastSearches.includes(refinedSearch)) {
 //       console.log("This value already exists.")
 // } else {
 //       pastSearches.unshift(refinedSearch)
@@ -156,9 +158,6 @@ function searchToHistory(){
 //             hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
 //       });
 // }
-
-
-// var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
 
 // if (!pastSearches){
 //       pastSearches = [""];
