@@ -8,7 +8,7 @@ var fivedayforecastarea = $("#forecast");
 
 var lastSearch = {}; //an object of the latest city that the openweatehr api interprets from user input 
 var pastSearches = [];
-var recent5searches = {}; //an object of the last 5 searches
+var recent5searches = []; //an object of the last 5 searches
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -22,16 +22,7 @@ function runSearch(){
                   var lon = data[0].lon;
                   refinedSearch = data[0].name;
 
-                  // if the recent 5 searches have this search then exit
-                  if (pastSearches.includes(refinedSearch)) {
-                        return;
-                  // or if this search is null, then exit
-                  } else if (!refinedSearch) {
-                        return;
-                  // else put this search in the lastsearch object
-                  } else {
-                        lastSearch.latest = refinedSearch;
-                  }
+                  lastSearch.latest = refinedSearch;
 
                   var cityName = refinedSearch + ", " + data[0].country;                 
 
@@ -165,33 +156,24 @@ function searchToHistory(){
       pastSearches.unshift(lastSearchstring)
       // push the array to local storage
       localStorage.setItem("SearchHistory", JSON.stringify(pastSearches))
-
 }
 
 // load history into five buttons below search bar
 function loadHistory(){
       // get the array from local storage
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
-      // get the last 5 results from the array and put it into an object
+      // get the last 5 results from the array and put it into an array
       if (!pastSearches) {
             return;
       } else {
-            recent5searches.lastsearch = pastSearches[0];
-            recent5searches.secondlastsearch = pastSearches[1];
-            recent5searches.thirdlastsearch = pastSearches[2];
-            recent5searches.fourthlastsearch = pastSearches[3];
-            recent5searches.fifthlastsearch = pastSearches[4];
+            recent5searches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
       }
       // IF there are any, clear any existing buttons
       hCEl.empty()
-      // FOR each property IN the object, generate a new button
-      for (const key in recent5searches) {
-            if (Object.hasOwnProperty.call(recent5searches, key)) {
-                  const searchItem = recent5searches[key];
-                  if (!searchItem){return;}
-                  hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)
-            }
-      }
+      // FOR EACH item in the array, generate a new button
+      recent5searches.forEach(searchItem => {
+            hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)   
+      });
 }
 
 // clears buttons and local storage
