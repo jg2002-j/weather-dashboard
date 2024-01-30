@@ -76,46 +76,69 @@ function WeatherSearch(event){
                                     date: dayjs(data.daily[1].dt).format("dddd DD MMM"),
                                     weather: data.daily[1].summary,
                                     weathericon: data.daily[1].weather.icon,
-                                    tempmin: data.daily[1].temp,
-                                    temmpmax: ,
-                                    windspeed: ,
-                                    humidity: ,
+                                    tempmin: data.daily[1].temp.min,
+                                    temmpmax: data.daily[1].temp.max,
+                                    windspeed: data.daily[1].wind_speed,
+                                    humidity: data.daily[1].humidity,
                               }
-                              var day3 = ""
+                              var day3 = {
+                                    date: dayjs(data.daily[2].dt).format("dddd DD MMM"),
+                                    weather: data.daily[2].summary,
+                                    weathericon: data.daily[2].weather.icon,
+                                    tempmin: data.daily[2].temp.min,
+                                    temmpmax: data.daily[2].temp.max,
+                                    windspeed: data.daily[2].wind_speed,
+                                    humidity: data.daily[2].humidity,
+                              }
+                              var day4 = {
+                                    date: dayjs(data.daily[3].dt).format("dddd DD MMM"),
+                                    weather: data.daily[3].summary,
+                                    weathericon: data.daily[3].weather.icon,
+                                    tempmin: data.daily[3].temp.min,
+                                    temmpmax: data.daily[3].temp.max,
+                                    windspeed: data.daily[3].wind_speed,
+                                    humidity: data.daily[3].humidity,
+                              }
+                              var day5 = {
+                                    date: dayjs(data.daily[4].dt).format("dddd DD MMM"),
+                                    weather: data.daily[4].summary,
+                                    weathericon: data.daily[4].weather.icon,
+                                    tempmin: data.daily[4].temp.min,
+                                    temmpmax: data.daily[4].temp.max,
+                                    windspeed: data.daily[4].wind_speed,
+                                    humidity: data.daily[4].humidity,
+                              }
+                              var day6 = {
+                                    date: dayjs(data.daily[5].dt).format("dddd DD MMM"),
+                                    weather: data.daily[5].summary,
+                                    weathericon: data.daily[5].weather.icon,
+                                    tempmin: data.daily[5].temp.min,
+                                    temmpmax: data.daily[5].temp.max,
+                                    windspeed: data.daily[5].wind_speed,
+                                    humidity: data.daily[5].humidity,
+                              }
                         
-                        });
+                              var forecastDays = [day2, day3, day4, day5, day6]
+                              forecastDays.forEach(day => {    
+                                 $("#forecastcards").append(`
+                                    <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                          <div class="card-body">
+                                                <div class="d-flex flex-column justify-content-between align-content-center">
+                                                      <img class="mb-3" src="https://openweathermap.org/img/wn/${day.weathericon}@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
+                                                      <div class="d-flex flex-column justify-content-evenly">
+                                                            <h5>${day.date}</h5>
+                                                            <h6 class="card-subtitle mb-2 text-body-secondary">${day.weather}</h6>
+                                                      </div>
+                                                </div>
+                                                <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${day.tempmin} — ${day.tempmax}°C</p>
+                                                <p class="card-text mb-1"><i class="me-2 bi bi-wind" style="color: #EEEBD0;"></i> ${day.windspeed} m/s</p>
+                                                <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i>${day.humidity} %</p>
+                                          </div>
+                                    </div>
+                                    `)
 
-                  // var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
-                  
-
-                  // forecastDays.forEach(date => {    
-                  //       fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=d9fb8f659f461f86c935ea25def8363c`)
-                  //             .then(function (response) {
-                  //                   return response.json();
-                  //             }).then(function (data){
-                  //                   // var forecastweatherIcon = data.current.weather[0].icon;
-                  //                   var forecasttemperatureMax = data.temperature.max;
-                  //                   var forecasttemperatureMin = data.temperature.min;
-                  //                   var forecasthumidity = data.humidity.afternoon;
-                  //                   var forecastwindspeed = data.wind.max.speed;
-                  //                   $("#forecastcards").append(`
-                  //                   <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
-                  //                         <div class="card-body">
-                  //                               <div class="d-flex flex-column justify-content-between align-content-center">
-                  //                                     <img class="mb-3" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
-                  //                                     <div class="d-flex flex-column justify-content-evenly">
-                  //                                           <h5>${date.format("dddd DD MMM YYYY")}</h5>
-                  //                                     </div>
-                  //                               </div>
-                  //                               <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${forecasttemperatureMin} — ${forecasttemperatureMax}°C</p>
-                  //                               <p class="card-text mb-1"><i class="me-2 bi bi-wind" style="color: #EEEBD0;"></i> ${forecastwindspeed} m/s</p>
-                  //                               <p class="card-text mb-1"><i class="me-2 bi bi-droplet-half" style="color: #99B2DD;"></i>${forecasthumidity} %</p>
-                  //                         </div>
-                  //                   </div>
-                  //                   `)
-
-                  //             });
-                  //       });
+                        });                 
+            }
                         
                   //       if (pastSearches.includes(refinedSearch)) {
                   //             console.log("This value already exists.")
@@ -134,7 +157,6 @@ function WeatherSearch(event){
                   //             });
                   //       }
 
-            });
 }
 
 var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
