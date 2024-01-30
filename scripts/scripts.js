@@ -25,11 +25,11 @@ function WeatherSearch(event){
                   var refinedSearch = data[0].name;
                   var cityName = refinedSearch + ", " + data[0].country;
             
-                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely&appid=d9fb8f659f461f86c935ea25def8363c`)
+                  fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
                         .then(function (response) {
                               return response.json();
                         }).then(function (data){
-                                                                  
+                              console.log(data)                  
                               var weather = data.current.weather[0].main;
                               var weatherIcon = data.current.weather[0].icon;
                               var temperature = data.current.temp;
@@ -69,25 +69,24 @@ function WeatherSearch(event){
                                     </div>
                               </div>
                               `)
-                        });
-
-
-                  
-                  var currentUnixTimestamp = dayjs().unix()
-                  
-                  fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${currentUnixTimestamp}&appid=d9fb8f659f461f86c935ea25def8363c`)
-                        .then(function (response){
-                              return response.json();
-                        }).then (function (data){
-                              console.log(data)
-                              // It's 5 days...just have to access it in a certain way. It goes up in steps of 3 hours. 8 indexes = 24 hours and should start from index 7 because of zero index
+                              
                               fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
-                        })
-                  
+                              
+                              var day2 = {
+                                    date: dayjs(data.daily[1].dt).format("dddd DD MMM"),
+                                    weather: data.daily[1].summary,
+                                    weathericon: data.daily[1].weather.icon,
+                                    tempmin: data.daily[1].temp,
+                                    temmpmax: ,
+                                    windspeed: ,
+                                    humidity: ,
+                              }
+                              var day3 = ""
+                        
+                        });
 
                   // var forecastDays = [currentDate.add(1, "day"), currentDate.add(2, "day"), currentDate.add(3, "day"), currentDate.add(4, "day"), currentDate.add(5, "day")];
                   
-                  // fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
 
                   // forecastDays.forEach(date => {    
                   //       fetch(`https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&units=metric&exclude=alerts&date=${date.format("YYYY-MM-DD")}&appid=d9fb8f659f461f86c935ea25def8363c`)
