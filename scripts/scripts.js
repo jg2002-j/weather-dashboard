@@ -70,7 +70,7 @@ function runSearch(){
                               </div>
                               `)
                               
-                              fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
+                              fivedayforecastarea.append(`<div class="card text-bg-dark border border-secondary rounded-5 p-3"><div class="card-body"><h4 class="card-title mb-4" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
                               
                               var day2 = {
                                     date: dayjs.unix(data.daily[1].dt).format("ddd DD MMM"),
@@ -121,7 +121,7 @@ function runSearch(){
                               var forecastDays = [day2, day3, day4, day5, day6]
                               forecastDays.forEach(day => {    
                                  $("#forecastcards").append(`
-                                    <div class="card rounded-5 p-2 mx-2 text-bg-dark border-secondary" style="width: 15rem;">
+                                    <div class="card rounded-4 px-1 mx-2 text-bg-dark border-secondary" style="width: 15rem;">
                                           <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="d-flex flex-column justify-content-between align-content-center">
                                                       <img class="mb-3" src="https://openweathermap.org/img/wn/${day.weathericon}@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
@@ -141,6 +141,7 @@ function runSearch(){
                               });
                         });           
             });
+      return "SearchDone"
 };
 
 // function: log user input in local history
@@ -192,8 +193,24 @@ function fromFormSearchQuery(event){
       InputEl.val("");
       currentForecastarea.empty();
       fivedayforecastarea.empty();
-      
-      runSearch().then(searchToHistory()).then(loadHistory());
+
+      let historyPromise = new Promise(function(myResolve, myReject) {
+            let x = runSearch(); 
+            console.log(x)         
+            if (x == "SearchDone") {
+                  myResolve();
+            } else {
+                  myReject();
+            }
+      });
+          
+      historyPromise.then(
+            function(value) {
+                  searchToHistory();
+                  loadHistory();
+            },
+            function(error){alert("Error. Please try again.")}
+      );
 }
 
 // function: create search query > if from history, use value of clicked button

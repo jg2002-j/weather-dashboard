@@ -30,7 +30,8 @@ No installation required. Access the deployed GitPages website [here.](https://j
 
 ## Credits
 
-[OpenWeather API](https://openweathermap.org/)
+- [OpenWeather API](https://openweathermap.org/)
+- [JavaScript Promise](https://www.w3schools.com/js/js_promise.asp)
 
 ## License
 
