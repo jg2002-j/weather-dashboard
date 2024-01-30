@@ -14,7 +14,7 @@ var recent5searches = []; //an object of the last 5 searches
 function runSearch(){
       var currentDate = dayjs();
       var date = currentDate.format("dddd DD MMM YYYY");
-      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=d9fb8f659f461f86c935ea25def8363c`)
+      fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=d9fb8f659f461f86c935ea25def8363c`)
             .then(function (response) {
                   return response.json();
             }).then(function (data){
@@ -217,4 +217,3 @@ loadHistory();
 // set up event listeners so functions run when needed:
 FormEl.on("submit", fromFormSearchQuery);
 hCEl.on("click", "#historyButton", fromHistorySearchQuery)
-
