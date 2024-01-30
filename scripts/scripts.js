@@ -5,34 +5,7 @@ var hCEl = $("#history")
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
-function WeatherSearch(event){
-      event.preventDefault();
-      
-      SearchQuery = InputEl.val();
-      InputEl.val("");
-      currentForecastarea.empty();
-      fivedayforecastarea.empty();
-      
-      var currentDate = dayjs();
-      var date = currentDate.format("dddd DD MMM YYYY");
-
-      if (pastSearches.includes(refinedSearch)) {
-            console.log("This value already exists.")
-      } else {
-            pastSearches.unshift(refinedSearch)
-            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                              
-            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-            console.log(`Recent searches: ${recentSearches}`)
-      
-            hCEl.empty()
-            recentSearches.forEach(search => {
-                  if (!search) {return;}
-                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-            });
-      }
-
+function runSearch(){
       fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=apikey`)
             .then(function (response) {
                   return response.json();
@@ -162,31 +135,69 @@ function WeatherSearch(event){
             });
 };
 
+function searchToHistory(){}
 
-// function: create search query
-      // if from search bar, use value of input field
-            // function: run search
-            // function: log value of input field into history
 
-      // if from history, use value of clicked button
-            // function: run search
 
-function createSearchQuery(event){
+// function: create search query > if from search bar, use value of input field
+function fromFormSearchQuery(event){
+      event.preventDefault();
       
-}
-
-
-var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
-
-if (!pastSearches){
-      pastSearches = [""];
-      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-}
+      var SearchQuery = InputEl.val();
+      InputEl.val("");
+      currentForecastarea.empty();
+      fivedayforecastarea.empty();
       
-FormEl.on("submit", WeatherSearch)
-
-function clearHistory() {
-      hCEl.empty()
-      pastSearches = [""];
-      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+      var currentDate = dayjs();
+      var date = currentDate.format("dddd DD MMM YYYY");
+      // function: run search
+      runSearch();
+      // function: log value of input field into history
+      searchToHistory();
 }
+
+
+
+// function: create search query > if from history, use value of clicked button
+function fromHistorySearchQuery(){
+      console.log($(this));
+      var SearchQuery = ""; 
+      // function: run search
+      runSearch();
+}
+
+
+// HISTORY STUFF
+
+// if (pastSearches.includes(refinedSearch)) {
+//       console.log("This value already exists.")
+// } else {
+//       pastSearches.unshift(refinedSearch)
+//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                        
+//       recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+//       console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+//       console.log(`Recent searches: ${recentSearches}`)
+
+//       hCEl.empty()
+//       recentSearches.forEach(search => {
+//             if (!search) {return;}
+//             hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+//       });
+// }
+
+
+// var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
+
+// if (!pastSearches){
+//       pastSearches = [""];
+//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+// }
+      
+// FormEl.on("submit", WeatherSearch)
+
+// function clearHistory() {
+//       hCEl.empty()
+//       pastSearches = [""];
+//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+// }
