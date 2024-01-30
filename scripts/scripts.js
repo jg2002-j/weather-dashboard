@@ -21,11 +21,8 @@ function runSearch(){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
                   refinedSearch = data[0].name;
-
                   lastSearch.latest = refinedSearch;
-
                   var cityName = refinedSearch + ", " + data[0].country;                 
-
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
                         .then(function (response) {
                               return response.json();
@@ -140,15 +137,19 @@ function runSearch(){
                                     `)
                               });
                         });           
+                  console.log(`line 140: lastSearch.latest is ${lastSearch.latest} and lastSearch is`, lastSearch)
+            }).then(function(){
+                  console.log(`line 142: lastSearch.latest is ${lastSearch.latest} and lastSearch is`, lastSearch)
+                  console.log
+                  return "SearchDone"
             });
-      return "SearchDone"
 };
 
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
-      console.log("lastSearch is ",lastSearch)
-      console.log("lastSearch.latest is ",lastSearch.latest)
+      console.log("line 154: lastSearch is ",lastSearch)
+      console.log("line 155: lastSearch.latest is ",lastSearch.latest)
       var lastSearchstring = lastSearch.latest;
       // push it to an array
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
@@ -198,7 +199,7 @@ function fromFormSearchQuery(event){
 
       let historyPromise = new Promise(function(myResolve, myReject) {
             let x = runSearch(); 
-            console.log(x)         
+            console.log("x is", x)         
             if (x == "SearchDone") {
                   myResolve();
             } else {
