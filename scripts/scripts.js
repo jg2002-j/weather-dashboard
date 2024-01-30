@@ -5,8 +5,8 @@ var hCEl = $("#history");
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
-var refinedSearch = "";
-var pastSearches = JSON.parse(localStorage.getItem("historySearches"));
+var pastOWsearchqueries = []; //an array of the cities that the openweatehr api interprets from user input 
+var pastSearches = [];
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -16,11 +16,15 @@ function runSearch(){
             }).then(function (data){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
-                  // refinedSearch = data[0].name;
-                  refinedSearch = "hello"
-                  var cityName = refinedSearch + ", " + data[0].country;
-            
-                  
+                  refinedSearch = data[0].name;
+
+                  if (pastOWsearchqueries.includes(refinedSearch)) {
+                        return;
+                  } else {
+                        pastOWsearchqueries.unshift(refinedSearch);
+                  }
+
+                  var cityName = refinedSearch + ", " + data[0].country;                 
 
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=apikey`)
                         .then(function (response) {
@@ -144,28 +148,27 @@ function runSearch(){
 
 // function: log user input in a history that displays below search bar
 function searchToHistory(){
-      console.log(refinedSearch);
+      console.log(pastOWsearchqueries);
+
+      // if local storage is blank, create a property there called historySearches with an array of values
       if (!pastSearches){
             pastSearches = [""];
             localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
       }
 
-      if (pastSearches.includes(refinedSearch)) {
-            console.log("This value already exists.")
-      } else {
-            pastSearches.unshift(refinedSearch)
-            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                              
-            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-            console.log(`Recent searches: ${recentSearches}`)
+      pastSearches.unshift(pastOWsearchqueries[0])
+      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                        
+      recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+      console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+      console.log(`Recent searches: ${recentSearches}`)
 
-            hCEl.empty()
-            recentSearches.forEach(search => {
-                  if (!search) {return;}
-                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-            });
-      }
+      hCEl.empty()
+      recentSearches.forEach(search => {
+            if (!search) {return;}
+            hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+      });
+
 
 // function clearHistory() {
       //       hCEl.empty()
