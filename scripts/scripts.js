@@ -149,7 +149,7 @@ function runSearch(){
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
-      console.log("lastSearch object = " + lastSearch)
+      console.log("lastSearch object = ", lastSearch)
       var lastSearchstring = lastSearch.latest;
       console.log("lastSearchstring = lastSearch.latest = " + lastSearchstring)
       // push it to an array
