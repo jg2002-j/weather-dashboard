@@ -3,12 +3,11 @@ font-family: 'General Sans', sans-serif;
 font-family: 'Cabinet Grotesk', sans-serif; 
 */
 
-body{background-color: #0b131e;}
+/* body{background-color: #0b131e;} */
 *{font-family: 'Cabinet Grotesk', sans-serif;}
 h1{
-      font-family: 'Tanker', sans-serif;
-      letter-spacing: 20px;
-      font-size: 6rem;
+      font-family: 'General Sans', sans-serif;
+      font-weight: 600;
       user-select: none;
 }
 h2{font-weight: 700;}
