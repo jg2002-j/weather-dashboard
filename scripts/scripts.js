@@ -153,7 +153,9 @@ function searchToHistory(){
       var lastSearchstring = lastSearch.latest;
       console.log(lastSearchstring)
       // push it to an array
-      pastSearches.unshift(lastSearchstring)
+      pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
+      if (!pastSearches) {pastSearches = [];}
+      pastSearches.unshift("lastSearchstring")
       // push the array to local storage
       localStorage.setItem("SearchHistory", JSON.stringify(pastSearches))
 }
@@ -164,7 +166,7 @@ function loadHistory(){
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
       // get the last 5 results from the array and put it into an array
       if (!pastSearches) {
-            return;
+            pastSearches = [];
       } else {
             recent5searches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
       }
@@ -172,7 +174,11 @@ function loadHistory(){
       hCEl.empty()
       // FOR EACH item in the array, generate a new button
       recent5searches.forEach(searchItem => {
-            hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)   
+            if (!searchItem) {
+                  return;
+            } else {
+                  hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)   
+            }
       });
 }
 
