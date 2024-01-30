@@ -16,9 +16,7 @@ function WeatherSearch(event){
       var currentDate = dayjs();
       var date = currentDate.format("dddd DD MMM YYYY");
 
-      if (!SearchQuery){
-            return;
-      } else if (pastSearches.includes(refinedSearch)) {
+      if (pastSearches.includes(refinedSearch)) {
             console.log("This value already exists.")
       } else {
             pastSearches.unshift(refinedSearch)
@@ -163,7 +161,21 @@ function WeatherSearch(event){
                         });           
             });
 };
-                        
+
+
+// function: create search query
+      // if from search bar, use value of input field
+            // function: run search
+            // function: log value of input field into history
+
+      // if from history, use value of clicked button
+            // function: run search
+
+function createSearchQuery(event){
+      
+}
+
+
 var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
 
 if (!pastSearches){
