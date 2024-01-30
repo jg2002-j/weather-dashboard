@@ -22,7 +22,6 @@ function runSearchFromInput(){
                   var refinedSearch = data[0].name;
                   searchToHistory(refinedSearch);   // we pass the VALUE (at the POINT we have DATA)
                   loadHistory();
-                  lastSearch.latest = refinedSearch;
                   var cityName = refinedSearch + ", " + data[0].country;                 
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
                         .then(function (response) {
@@ -142,7 +141,7 @@ function runSearchFromInput(){
 };
 
 // function: runSearch from type BUTTON 
-function runSearchFromInput(){
+function runSearchFromButton(){
       var currentDate = dayjs();
       var date = currentDate.format("dddd DD MMM YYYY");
       fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${SearchQuery}&limit=1&appid=d9fb8f659f461f86c935ea25def8363c`)
@@ -152,7 +151,6 @@ function runSearchFromInput(){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
                   var refinedSearch = data[0].name;
-                  lastSearch.latest = refinedSearch;
                   var cityName = refinedSearch + ", " + data[0].country;                 
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=d9fb8f659f461f86c935ea25def8363c`)
                         .then(function (response) {
