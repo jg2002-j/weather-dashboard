@@ -5,7 +5,7 @@ var hCEl = $("#history");
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
 
-var refinedSearch = ""; // runSearch() sets refined search as the city name 
+var refinedSearch = "";
 var pastSearches = JSON.parse(localStorage.getItem("historySearches"));
 
 // function: fetch data from openweather api and populate on page 
@@ -16,9 +16,12 @@ function runSearch(){
             }).then(function (data){
                   var lat = data[0].lat;
                   var lon = data[0].lon;
-                  refinedSearch = data[0].name;
+                  // refinedSearch = data[0].name;
+                  refinedSearch = "hello"
                   var cityName = refinedSearch + ", " + data[0].country;
             
+                  
+
                   fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,minutely,hourly&appid=apikey`)
                         .then(function (response) {
                               return response.json();
@@ -141,29 +144,28 @@ function runSearch(){
 
 // function: log user input in a history that displays below search bar
 function searchToHistory(){
-      
-      // if (pastSearches.includes(refinedSearch)) {
-//       console.log("This value already exists.")
-// } else {
-//       pastSearches.unshift(refinedSearch)
-//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                        
-//       recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-//       console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-//       console.log(`Recent searches: ${recentSearches}`)
+      console.log(refinedSearch);
+      if (!pastSearches){
+            pastSearches = [""];
+            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+      }
 
-//       hCEl.empty()
-//       recentSearches.forEach(search => {
-//             if (!search) {return;}
-//             hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-//       });
-// }
+      if (pastSearches.includes(refinedSearch)) {
+            console.log("This value already exists.")
+      } else {
+            pastSearches.unshift(refinedSearch)
+            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                              
+            recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+            console.log(`Recent searches: ${recentSearches}`)
 
-// if (!pastSearches){
-//       pastSearches = [""];
-//       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-// }
-      
+            hCEl.empty()
+            recentSearches.forEach(search => {
+                  if (!search) {return;}
+                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+            });
+      }
 
 // function clearHistory() {
       //       hCEl.empty()
