@@ -1,6 +1,7 @@
 var FormEl = $("#search-form");
 var InputEl = $("#search-input");
 var hCEl = $("#history");
+var historyButton = $("#historyButton")
 
 var currentForecastarea = $("#today");
 var fivedayforecastarea = $("#forecast");
@@ -146,9 +147,9 @@ function runSearch(){
             });
 };
 
-// function: log user input in a history that displays below search bar
+// function: log user input in local history
 function searchToHistory(){
-      console.log(pastOWsearchqueries);
+      console.log(`array of the citynames openweather api gets from form input: ${pastOWsearchqueries}`);
 
       // if local storage is blank, continue
       if (!pastSearches){
@@ -157,25 +158,33 @@ function searchToHistory(){
             pastSearches = JSON.parse(localStorage.getItem("historySearches"));
       }
       
-      console.log(pastSearches)
+      console.log(`pastSearches: ${pastSearches}`)
 
       // then add the latest unique search query to that array and re-set that array as a local storage item
       pastSearches.unshift(pastOWsearchqueries[0])
       localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
 }
 
+// load history into five buttons below search bar
 function loadHistory(){
             // create an array of the five most recent searches
             recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-            console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-            console.log(`Recent searches: ${recentSearches}`)
+            console.log(`recentSearches: ${recentSearches}`)
       
+            // clear all the existing buttons
             hCEl.empty()
+            // for each of the 5 most recent searches, create a new button
             recentSearches.forEach(search => {
-                  hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+                  hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${search}</button>`)
             });
 }
 
+// clears buttons and local storage
+function clearHistory() {
+            hCEl.empty()
+            pastSearches = [""];
+            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+}
 
 // function: create search query > if from search bar, use value of input field
 function fromFormSearchQuery(event){
@@ -192,6 +201,8 @@ function fromFormSearchQuery(event){
       runSearch();
       // function: log value of input field into history
       searchToHistory();
+      // refreshes history buttons
+      loadHistory();
 }
 
 // function: create search query > if from history, use value of clicked button
@@ -202,5 +213,9 @@ function fromHistorySearchQuery(){
       runSearch();
 }
 
+// run functions on page load:
+loadHistory();
+
 // set up event listeners so functions run when needed:
-FormEl.on("submit", fromFormSearchQuery)
+FormEl.on("submit", fromFormSearchQuery);
+historyButton.on("click", fromHistorySearchQuery);
