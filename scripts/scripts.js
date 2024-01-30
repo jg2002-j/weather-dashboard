@@ -154,34 +154,12 @@ function runSearch(){
 
 // function: log user input in local history
 function searchToHistory(){
-      console.log(`array of the citynames openweather api gets from form input: ${pastOWsearchqueries}`);
 
-      // if local storage is blank, continue
-      if (!pastSearches){
-      //else get the values stored there and set it into an array called pastSearches
-      } else { 
-            pastSearches = JSON.parse(localStorage.getItem("historySearches"));
-      }
-      
-      console.log(`pastSearches: ${pastSearches}`)
-
-      // then add the latest unique search query to that array and re-set that array as a local storage item
-      pastSearches.unshift(pastOWsearchqueries[0])
-      localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
 }
 
 // load history into five buttons below search bar
 function loadHistory(){
-            // create an array of the five most recent searches
-            console.log(`recentSearches: ${recentSearches}`)
-      
-            // clear all the existing buttons
-            hCEl.empty()
-            // for each of the 5 most recent searches, create a new button
-            recentSearches.forEach(search => {
-                  if (!search){return;}
-                  hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${search}</button>`)
-            });
+
 }
 
 // clears buttons and local storage
