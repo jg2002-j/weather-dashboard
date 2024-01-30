@@ -75,50 +75,52 @@ function WeatherSearch(event){
                               var day2 = {
                                     date: dayjs(data.daily[1].dt).format("dddd DD MMM"),
                                     weather: data.daily[1].summary,
-                                    weathericon: data.daily[1].weather.icon,
+                                    weathericon: data.daily[1].weather[0].icon,
                                     tempmin: data.daily[1].temp.min,
-                                    temmpmax: data.daily[1].temp.max,
+                                    tempmax: data.daily[1].temp.max,
                                     windspeed: data.daily[1].wind_speed,
                                     humidity: data.daily[1].humidity,
                               }
                               var day3 = {
                                     date: dayjs(data.daily[2].dt).format("dddd DD MMM"),
                                     weather: data.daily[2].summary,
-                                    weathericon: data.daily[2].weather.icon,
+                                    weathericon: data.daily[2].weather[0].icon,
                                     tempmin: data.daily[2].temp.min,
-                                    temmpmax: data.daily[2].temp.max,
+                                    tempmax: data.daily[2].temp.max,
                                     windspeed: data.daily[2].wind_speed,
                                     humidity: data.daily[2].humidity,
                               }
                               var day4 = {
                                     date: dayjs(data.daily[3].dt).format("dddd DD MMM"),
                                     weather: data.daily[3].summary,
-                                    weathericon: data.daily[3].weather.icon,
+                                    weathericon: data.daily[3].weather[0].icon,
                                     tempmin: data.daily[3].temp.min,
-                                    temmpmax: data.daily[3].temp.max,
+                                    tempmax: data.daily[3].temp.max,
                                     windspeed: data.daily[3].wind_speed,
                                     humidity: data.daily[3].humidity,
                               }
                               var day5 = {
                                     date: dayjs(data.daily[4].dt).format("dddd DD MMM"),
                                     weather: data.daily[4].summary,
-                                    weathericon: data.daily[4].weather.icon,
+                                    weathericon: data.daily[4].weather[0].icon,
                                     tempmin: data.daily[4].temp.min,
-                                    temmpmax: data.daily[4].temp.max,
+                                    tempmax: data.daily[4].temp.max,
                                     windspeed: data.daily[4].wind_speed,
                                     humidity: data.daily[4].humidity,
                               }
                               var day6 = {
                                     date: dayjs(data.daily[5].dt).format("dddd DD MMM"),
                                     weather: data.daily[5].summary,
-                                    weathericon: data.daily[5].weather.icon,
+                                    weathericon: data.daily[5].weather[0].icon,
                                     tempmin: data.daily[5].temp.min,
-                                    temmpmax: data.daily[5].temp.max,
+                                    tempmax: data.daily[5].temp.max,
                                     windspeed: data.daily[5].wind_speed,
                                     humidity: data.daily[5].humidity,
                               }
                         
                               var forecastDays = [day2, day3, day4, day5, day6]
+                              console.log(forecastDays)
+
                               forecastDays.forEach(day => {    
                                  $("#forecastcards").append(`
                                     <div class="card m-2 text-bg-dark border-secondary" style="width: 15rem;">
@@ -127,7 +129,7 @@ function WeatherSearch(event){
                                                       <img class="mb-3" src="https://openweathermap.org/img/wn/${day.weathericon}@2x.png" alt="Weather icon" style="width: 4rem; height: auto; margin: auto;">
                                                       <div class="d-flex flex-column justify-content-evenly">
                                                             <h5>${day.date}</h5>
-                                                            <h6 class="card-subtitle mb-2 text-body-secondary">${day.weather}</h6>
+                                                            <h6 class="card-subtitle mb-2 text-body-light">${day.weather}</h6>
                                                       </div>
                                                 </div>
                                                 <p class="card-text mb-1"><i class="me-2 bi bi-thermometer-half" style="color: #A26769;"></i>${day.tempmin} — ${day.tempmax}°C</p>
@@ -136,28 +138,27 @@ function WeatherSearch(event){
                                           </div>
                                     </div>
                                     `)
-
-                        });                 
-            }
+                              });
+                        });           
+            });
+};
                         
-                  //       if (pastSearches.includes(refinedSearch)) {
-                  //             console.log("This value already exists.")
-                  //       } else {
-                  //             pastSearches.unshift(refinedSearch)
-                  //             localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
-                                                
-                  //             recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
-                  //             console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
-                  //             console.log(`Recent searches: ${recentSearches}`)
-      
-                  //             hCEl.empty()
-                  //             recentSearches.forEach(search => {
-                  //                   if (!search) {return;}
-                  //                   hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
-                  //             });
-                  //       }
+//       if (pastSearches.includes(refinedSearch)) {
+//             console.log("This value already exists.")
+//       } else {
+//             pastSearches.unshift(refinedSearch)
+//             localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+                              
+//             recentSearches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]]
+//             console.log(`Past searches: ${localStorage.setItem("historySearches", JSON.stringify(pastSearches))}`)
+//             console.log(`Recent searches: ${recentSearches}`)
 
-}
+//             hCEl.empty()
+//             recentSearches.forEach(search => {
+//                   if (!search) {return;}
+//                   hCEl.append(`<button class="btn btn-outline-light m-2" onclick="WeatherSearch()">${search}</button>`)
+//             });
+//       }
 
 var pastSearches = JSON.parse(localStorage.getItem("historySearches"))
 
