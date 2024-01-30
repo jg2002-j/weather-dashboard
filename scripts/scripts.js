@@ -22,10 +22,13 @@ function runSearch(){
                   var lon = data[0].lon;
                   refinedSearch = data[0].name;
 
+                  // if the recent 5 searches have this search then exit
                   if (recentSearches.includes(refinedSearch)) {
                         return;
+                  // or if this search is null, then exit
                   } else if (!refinedSearch) {
                         return;
+                  // else put this search in the lastsearch object
                   } else {
                         lastSearch.latest(refinedSearch);
                   }
@@ -167,7 +170,7 @@ function searchToHistory(){
 function loadHistory(){
       // get the array from local storage
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
-      // get the last 5 results from the array
+      // get the last 5 results from the array and put it into an object
       if (!pastSearches) {
             return;
       } else {
@@ -179,11 +182,14 @@ function loadHistory(){
       }
       // IF there are any, clear any existing buttons
       hCEl.empty()
-      // FOR EACH item in the array, generate a new button
-      recent5searches.forEach(searchItem => {
-            hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)
-      });
-
+      // FOR each property IN the object, generate a new button
+      for (const key in recent5searches) {
+            if (Object.hasOwnProperty.call(recent5searches, key)) {
+                  const searchItem = recent5searches[key];
+                  if (!searchItem){return;}
+                  hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)
+            }
+      }
 }
 
 // clears buttons and local storage
