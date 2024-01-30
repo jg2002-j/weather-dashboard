@@ -198,19 +198,17 @@ function fromFormSearchQuery(event){
       currentForecastarea.empty();
       fivedayforecastarea.empty();
       
-      // function: run search
       runSearch();
-      // function: log value of input field into history
       searchToHistory();
-      // refreshes history buttons
       loadHistory();
 }
 
 // function: create search query > if from history, use value of clicked button
 function fromHistorySearchQuery(){
       SearchQuery = $(this)[0].innerText; 
-      // function: run search
       runSearch();
+      currentForecastarea.empty();
+      fivedayforecastarea.empty();
 }
 
 // run functions on page load:
@@ -218,6 +216,5 @@ loadHistory();
 
 // set up event listeners so functions run when needed:
 FormEl.on("submit", fromFormSearchQuery);
-
 hCEl.on("click", "#historyButton", fromHistorySearchQuery)
 
