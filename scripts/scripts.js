@@ -74,7 +74,7 @@ function runSearch(){
                               fivedayforecastarea.append(`<div class="card text-bg-dark"><div class="card-body"><h4 class="card-title" >5-Day Forecast</h4><div class="container d-flex flex-nowrap justify-content-start" id="forecastcards"></div></div></div>`);
                               
                               var day2 = {
-                                    date: dayjs.unix(data.daily[1].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[1].dt).format("ddd DD MMM"),
                                     weather: data.daily[1].summary,
                                     weathericon: data.daily[1].weather[0].icon,
                                     tempmin: data.daily[1].temp.min,
@@ -83,7 +83,7 @@ function runSearch(){
                                     humidity: data.daily[1].humidity,
                               }
                               var day3 = {
-                                    date: dayjs.unix(data.daily[2].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[2].dt).format("ddd DD MMM"),
                                     weather: data.daily[2].summary,
                                     weathericon: data.daily[2].weather[0].icon,
                                     tempmin: data.daily[2].temp.min,
@@ -92,7 +92,7 @@ function runSearch(){
                                     humidity: data.daily[2].humidity,
                               }
                               var day4 = {
-                                    date: dayjs.unix(data.daily[3].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[3].dt).format("ddd DD MMM"),
                                     weather: data.daily[3].summary,
                                     weathericon: data.daily[3].weather[0].icon,
                                     tempmin: data.daily[3].temp.min,
@@ -101,7 +101,7 @@ function runSearch(){
                                     humidity: data.daily[3].humidity,
                               }
                               var day5 = {
-                                    date: dayjs.unix(data.daily[4].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[4].dt).format("ddd DD MMM"),
                                     weather: data.daily[4].summary,
                                     weathericon: data.daily[4].weather[0].icon,
                                     tempmin: data.daily[4].temp.min,
@@ -110,7 +110,7 @@ function runSearch(){
                                     humidity: data.daily[4].humidity,
                               }
                               var day6 = {
-                                    date: dayjs.unix(data.daily[5].dt).format("dddd DD MMM"),
+                                    date: dayjs.unix(data.daily[5].dt).format("ddd DD MMM"),
                                     weather: data.daily[5].summary,
                                     weathericon: data.daily[5].weather[0].icon,
                                     tempmin: data.daily[5].temp.min,
@@ -149,9 +149,9 @@ function runSearch(){
 // function: log user input in local history
 function searchToHistory(){
       // get the last search
-      console.log(lastSearch)
+      console.log("lastSearch object = " + lastSearch)
       var lastSearchstring = lastSearch.latest;
-      console.log(lastSearchstring)
+      console.log("lastSearchstring = lastSearch.latest = " + lastSearchstring)
       // push it to an array
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
       if (!pastSearches) {pastSearches = [];}
@@ -186,7 +186,7 @@ function loadHistory(){
 function clearHistory() {
             hCEl.empty()
             pastSearches = [];
-            localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
+            localStorage.setItem("SearchHistory", JSON.stringify(pastSearches)) 
 }
 
 // function: create search query > if from search bar, use value of input field
