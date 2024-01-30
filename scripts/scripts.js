@@ -8,6 +8,7 @@ var fivedayforecastarea = $("#forecast");
 
 var lastSearch = {}; //an object of the latest city that the openweatehr api interprets from user input 
 var pastSearches = [];
+var recent5searches = {}; //an object of the last 5 searches
 
 // function: fetch data from openweather api and populate on page 
 function runSearch(){
@@ -167,12 +168,20 @@ function loadHistory(){
       // get the array from local storage
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
       // get the last 5 results from the array
-      var recent5searches = [pastSearches[0], pastSearches[1], pastSearches[2], pastSearches[3], pastSearches[4]];
+      if (!pastSearches) {
+            return;
+      } else {
+            recent5searches.lastsearch = pastSearches[0];
+            recent5searches.secondlastsearch = pastSearches[1];
+            recent5searches.thirdlastsearch = pastSearches[2];
+            recent5searches.fourthlastsearch = pastSearches[3];
+            recent5searches.fifthlastsearch = pastSearches[4];
+      }
       // IF there are any, clear any existing buttons
       hCEl.empty()
       // FOR EACH item in the array, generate a new button
       recent5searches.forEach(searchItem => {
-            
+            hCEl.append(`<button class="btn btn-outline-light m-2" id="historyButton">${searchItem}</button>`)
       });
 
 }
