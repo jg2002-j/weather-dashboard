@@ -155,7 +155,7 @@ function searchToHistory(){
       // push it to an array
       pastSearches = JSON.parse(localStorage.getItem("SearchHistory"))
       if (!pastSearches) {pastSearches = [];}
-      pastSearches.unshift("lastSearchstring")
+      pastSearches.unshift(`Madrid`)
       // push the array to local storage
       localStorage.setItem("SearchHistory", JSON.stringify(pastSearches))
 }
@@ -185,7 +185,7 @@ function loadHistory(){
 // clears buttons and local storage
 function clearHistory() {
             hCEl.empty()
-            pastSearches = [""];
+            pastSearches = [];
             localStorage.setItem("historySearches", JSON.stringify(pastSearches)) 
 }
 
@@ -208,8 +208,7 @@ function fromFormSearchQuery(event){
 
 // function: create search query > if from history, use value of clicked button
 function fromHistorySearchQuery(){
-      console.log($(this));
-      SearchQuery = ""; 
+      SearchQuery = $(this)[0].innerText; 
       // function: run search
       runSearch();
 }
@@ -219,4 +218,6 @@ loadHistory();
 
 // set up event listeners so functions run when needed:
 FormEl.on("submit", fromFormSearchQuery);
-historyButton.on("click", fromHistorySearchQuery);
+
+hCEl.on("click", "#historyButton", fromHistorySearchQuery)
+
